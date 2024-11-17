@@ -9,6 +9,7 @@ import org.example.entity.table.tbl;
 import org.example.entity.table.tr;
 import org.example.entity.table.tc;
 import org.example.entity.paragraph.r;
+import org.example.entity.paragraph.p;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.*;
@@ -52,6 +53,18 @@ public class TestTable {
         Persister serializer = new Persister();
 
         document text = serializer.read(document.class, reader, false);
+
+        for (body b : text.body) {
+            if (b.p != null) {
+                for (p p: b.p) {
+                    if (p.r != null) {
+                        for (r r : p.r)
+                            if (r.t != null) {
+                                System.out.println(r.t.text);
+                            }
+                    }
+            }
+        }
 
         for (body b : text.body) {
             if (b.p != null) {
